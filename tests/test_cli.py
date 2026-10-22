@@ -53,3 +53,10 @@ def test_init_wizard_csv_only_is_rerunnable(isolated_home: Path) -> None:
     acct = brands.get("acme-test").account(Platform.YOUTUBE)
     assert acct is not None and acct.mode == "csv"
     assert "bring-your-own-credentials" in result.output
+
+
+def test_init_rejects_invalid_brand_then_reprompts(isolated_home: Path) -> None:
+    answers = "SOCIALLEDGER_LIVE=1 uv run pytest\nacme-test\nn\nn\nn\nn\nn\n"
+    result = runner.invoke(app, ["init"], input=answers)
+    assert result.exit_code == 0, result.output
+    assert "not a valid brand name" in result.output

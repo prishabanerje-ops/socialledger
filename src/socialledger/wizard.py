@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import os
+import re
 
 import typer
 
@@ -11,6 +12,8 @@ from socialledger.auth.tokens import FILE_STORE_WARNING, AppCredentials, Keyring
 from socialledger.config import load_brands, save_brands
 from socialledger.connectors import IMPLEMENTED_API_PLATFORMS
 from socialledger.schema import HealthStatus, Platform
+
+BRAND_NAME = re.compile(r"[A-Za-z0-9][A-Za-z0-9_.-]*")
 
 SETUP_GUIDES: dict[Platform, str] = {
     Platform.YOUTUBE: """\
@@ -55,7 +58,10 @@ def run() -> None:
         and not any(a.account_id for a in brands.brands[0].accounts)
     )
     default = "my-brand" if placeholder or not brands.brands else brands.brands[0].name
-    brand = typer.prompt("Brand name (letters, digits, - _ .)", default=default)
+    brand = typer.prompt("Brand name (letters, digits, - _ .)", default=default).strip()
+    while not BRAND_NAME.fullmatch(brand):
+        typer.secho(f"'{brand}' is not a valid brand name.", fg=typer.colors.RED)
+        brand = typer.prompt("Brand name (letters, digits, - _ .)", default=default).strip()
     if placeholder:
         brands.brands = []
         save_brands(brands)
