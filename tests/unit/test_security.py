@@ -64,7 +64,7 @@ def test_retry_recovers_after_5xx() -> None:
 def test_encrypted_file_store_roundtrip(tmp_path: Path) -> None:
     store = EncryptedFileStore(tmp_path / "tokens.enc", "correct horse")
     store.set_model("youtube:token:b", OAuthToken(access_token="plaintext-token-xyz"))
-    raw = (tmp_path / "tokens.enc").read_text()
+    raw = (tmp_path / "tokens.enc").read_text(encoding="utf-8")
     assert "plaintext-token-xyz" not in raw
     loaded = store.get_model("youtube:token:b", OAuthToken)
     assert loaded is not None and loaded.access_token == "plaintext-token-xyz"

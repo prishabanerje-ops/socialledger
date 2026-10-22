@@ -72,8 +72,8 @@ def test_snapshot_then_report(youtube_secrets: MemoryStore, isolated_home: Path)
         "test-brand", "custom", start=date(2026, 10, 1), end=date(2026, 10, 7), today=TODAY
     )
     run_dir = Path(run.run_dir)
-    report = json.loads((run_dir / "report.json").read_text())
-    manifest = json.loads((run_dir / "manifest.json").read_text())
+    report = json.loads((run_dir / "report.json").read_text(encoding="utf-8"))
+    manifest = json.loads((run_dir / "manifest.json").read_text(encoding="utf-8"))
 
     assert report["schema_version"] == "1.0" and manifest["kind"] == "report"
     yt = next(p for p in report["platforms"] if p["platform"] == "youtube")
@@ -87,7 +87,7 @@ def test_snapshot_then_report(youtube_secrets: MemoryStore, isolated_home: Path)
     assert ("tiktok", "gap") in kinds  # CSV-mode platform with no data is reported, not hidden
 
     for name in ("report.md", "report.html", "report.json", "manifest.json"):
-        content = (run_dir / name).read_text()
+        content = (run_dir / name).read_text(encoding="utf-8")
         for secret in (FAKE_ACCESS_TOKEN, FAKE_REFRESH_TOKEN, FAKE_CLIENT_SECRET):
             assert secret not in content, f"secret leaked into {name}"
         assert manifest["files"].get(name) or name == "manifest.json"
@@ -107,6 +107,6 @@ def test_snapshot_failure_is_logged_not_fatal(youtube_secrets: MemoryStore) -> N
 def test_html_report_has_no_external_resources() -> None:
     api.seed_demo(today=TODAY)
     run = api.report("demo-brand", "monthly", today=TODAY)
-    html = (Path(run.run_dir) / "report.html").read_text()
+    html = (Path(run.run_dir) / "report.html").read_text(encoding="utf-8")
     assert not re.search(r"<(script|link)[^>]+(src|href)=[\"']https?://", html)
     assert "Synthetic demo data" in html
