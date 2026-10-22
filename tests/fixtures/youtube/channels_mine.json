@@ -1,0 +1,12 @@
+{
+  "kind": "youtube#channelListResponse",
+  "items": [
+    {
+      "kind": "youtube#channel",
+      "id": "UCsynthetic00000000000001",
+      "snippet": {"title": "Synthetic Test Channel", "customUrl": "@synthetic-test"},
+      "statistics": {"viewCount": "1234500", "subscriberCount": "12300", "hiddenSubscriberCount": false, "videoCount": "42"},
+      "contentDetails": {"relatedPlaylists": {"uploads": "UUsynthetic00000000000001"}}
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "kind": "youtube#playlistItemListResponse",
+  "items": [
+    {"contentDetails": {"videoId": "vidSynthA01", "videoPublishedAt": "2026-10-03T15:00:00Z"}},
+    {"contentDetails": {"videoId": "vidSynthB02", "videoPublishedAt": "2026-10-02T10:30:00Z"}},
+    {"contentDetails": {"videoId": "vidPrivate3"}},
+    {"contentDetails": {"videoId": "vidSynthOld", "videoPublishedAt": "2026-08-01T09:00:00Z"}}
+  ]
+}

@@ -1,0 +1,23 @@
+# Example brand configuration. `social init` copies this to ~/.socialledger/brands.yaml
+# and fills in account IDs when you connect each platform. All names here are synthetic.
+#
+# mode:
+#   api   fetch with the official API using your own developer app (see docs/platforms/)
+#   csv   import platform-exported CSV files (`social import`), no API access needed
+
+brands:
+  - name: example-brand
+    timezone: UTC
+    accounts:
+      - platform: youtube
+        mode: api
+        account_id: null     # filled in by `social connect youtube`
+        handle: null
+      # - platform: instagram
+      #   mode: api
+      # - platform: facebook
+      #   mode: api
+      # - platform: linkedin
+      #   mode: csv
+      # - platform: tiktok
+      #   mode: csv

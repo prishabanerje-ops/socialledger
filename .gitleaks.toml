@@ -1,0 +1,13 @@
+# gitleaks configuration: default rules plus an allowlist for obviously fake test values.
+title = "socialledger gitleaks config"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Synthetic test credentials that are asserted never to leak"
+regexes = [
+  '''test-client-secret-SHOULD-NEVER-LEAK''',
+  '''ya29\.test-access-token-SHOULD-NEVER-LEAK''',
+  '''1//test-refresh-token-SHOULD-NEVER-LEAK''',
+]

@@ -1,0 +1,17 @@
+name: Platform API change
+description: A platform renamed, deprecated or changed a metric, endpoint or access rule
+labels: [api-change]
+body:
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform
+      options: [YouTube, Instagram, Facebook, LinkedIn, TikTok]
+  - type: input
+    id: url
+    attributes: {label: Official documentation or changelog URL}
+    validations: {required: true}
+  - type: textarea
+    id: change
+    attributes: {label: What changed and from when?}
+    validations: {required: true}

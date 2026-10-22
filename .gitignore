@@ -1,0 +1,40 @@
+# Secrets and local state — never commit
+.env
+.env.*
+!.env.example
+*.token
+*.tokens
+tokens.enc
+*.enc
+credentials*.json
+client_secret*.json
+
+# User data (lives in ~/.socialledger by default, but guard local overrides too)
+runs/
+data/
+exports/
+*.sqlite
+*.sqlite3
+*.db
+/brands.yaml
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+build/
+dist/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+coverage.xml
+htmlcov/
+
+# Editors / OS
+.DS_Store
+.idea/
+.vscode/
+.playwright-mcp/

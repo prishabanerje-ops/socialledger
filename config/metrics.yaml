@@ -1,0 +1,83 @@
+# Platform metric names and API version pins.
+#
+# Platforms rename and deprecate metrics often (Meta especially), so connectors read metric
+# names from this file instead of hard-coding them. To follow an API change, edit this file
+# (or copy it to ~/.socialledger/metrics.yaml to override locally) — no code change needed.
+#
+# For each canonical metric:
+#   <api metric name>      the platform metric that maps to it
+#   null                   not exposed by the API -> reported as `unavailable_from_api`
+#
+# Every entry was checked against official documentation on the date in `verified_on`.
+# Doc URLs are listed in docs/platforms/<platform>.md and in each connector's docstring.
+
+verified_on: "2026-10-22"
+
+api_versions:
+  youtube:
+    data: v3
+    analytics: v2
+  meta: v26.0          # Graph API; v26.0 released 2026-07-29
+  linkedin: "202610"   # Linkedin-Version header; supported until 2027-10-15
+  tiktok: v2           # Display API v2
+
+platforms:
+  youtube:
+    # YouTube Analytics API v2, reports.query, dimensions=day (channel==MINE)
+    daily:
+      views: views
+      watch_time_minutes: estimatedMinutesWatched
+      avg_view_duration_seconds: averageViewDuration
+      followers_gained: subscribersGained
+      followers_lost: subscribersLost
+      likes: likes
+      comments: comments
+      shares: shares
+      # Not available in reports.query. Thumbnail impressions/CTR exist only in the bulk
+      # YouTube Reporting API (video_thumbnail_impressions), which this tool does not use.
+      impressions: null
+      reach: null
+      saves: null
+      profile_visits: null
+      link_clicks: null
+    # Per-video: Analytics reports.query dimensions=video,creatorContentType filtered by video IDs
+    post:
+      views: views
+      watch_time_minutes: estimatedMinutesWatched
+      avg_view_duration_seconds: averageViewDuration
+      likes: likes
+      comments: comments
+      shares: shares
+      impressions: null
+      reach: null
+      saves: null
+      link_clicks: null
+    # creatorContentType dimension values -> canonical post format
+    formats:
+      SHORTS: short
+      VIDEO_ON_DEMAND: long_video
+      LIVE_STREAM: live
+      STORY: story
+      UNSPECIFIED: unknown
+    # Data API channels.list statistics.subscriberCount is rounded down to 3 significant figures.
+    followers_note: "Subscriber count is rounded down to 3 significant figures by the YouTube Data API."
+    # Analytics data typically lags 48-72 hours; the most recent days are omitted.
+    latency_days: 3
+    max_backfill_days: 365
+    retention_days: null
+    # Changes in how a metric is defined; reports spanning these dates get a data-quality note.
+    definition_changes:
+      - metric: views
+        date: "2025-03-31"
+        note: "Shorts views began counting every start/replay; engagedViews keeps the old definition."
+      - metric: views
+        date: "2026-08-27"
+        note: "View counting aligned across long-form, Live and Shorts (playback start, including autoplay)."
+
+engagement_rate:
+  # Documented per platform. If any part of the denominator is missing, the rate is
+  # reported as unavailable — it is never estimated.
+  youtube:
+    numerator: [likes, comments, shares]
+    denominator: views
+    label: "(likes + comments + shares) / views"

@@ -1,0 +1,17 @@
+{
+  "kind": "youtubeAnalytics#resultTable",
+  "columnHeaders": [
+    {"name": "video", "columnType": "DIMENSION", "dataType": "STRING"},
+    {"name": "creatorContentType", "columnType": "DIMENSION", "dataType": "STRING"},
+    {"name": "views", "columnType": "METRIC", "dataType": "INTEGER"},
+    {"name": "estimatedMinutesWatched", "columnType": "METRIC", "dataType": "INTEGER"},
+    {"name": "averageViewDuration", "columnType": "METRIC", "dataType": "INTEGER"},
+    {"name": "likes", "columnType": "METRIC", "dataType": "INTEGER"},
+    {"name": "comments", "columnType": "METRIC", "dataType": "INTEGER"},
+    {"name": "shares", "columnType": "METRIC", "dataType": "INTEGER"}
+  ],
+  "rows": [
+    ["vidSynthB02", "VIDEO_ON_DEMAND", 7900, 30000, 228, 0, 39, 15],
+    ["vidSynthA01", "SHORTS", 4900, 2000, 24, 299, 12, 30]
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "kind": "youtube#videoListResponse",
+  "items": [
+    {"id": "vidSynthA01", "snippet": {"title": "Synthetic short A", "publishedAt": "2026-10-03T15:00:00Z"},
+     "statistics": {"viewCount": "5000", "likeCount": "300", "commentCount": "12"},
+     "contentDetails": {"duration": "PT45S"}},
+    {"id": "vidSynthB02", "snippet": {"title": "Synthetic long video B", "publishedAt": "2026-10-02T10:30:00Z"},
+     "statistics": {"viewCount": "8000", "commentCount": "40"},
+     "contentDetails": {"duration": "PT12M3S"}}
+  ]
+}
